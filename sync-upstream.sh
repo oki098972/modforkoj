@@ -6,6 +6,14 @@ FILES=(default html/config.js html/script.js)
 
 cd "$(dirname "$0")"   # Bのルートで実行
 
+# mainにいて、未コミットの変更がないことを確認
+if [ "$(git branch --show-current)" != "main" ]; then
+  echo "mainブランチで実行してください"; exit 1
+fi
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  echo "未コミットの変更があります。先にコミットかstashしてください"; exit 1
+fi
+
 # Aを最新化
 git -C "$A" pull --ff-only
 
@@ -17,17 +25,6 @@ if [ "$base" = "$head" ]; then
   exit 0
 fi
 
-# 対象ファイルに変更があったか確認
-if [ -z "$(git -C "$A" diff --name-only "$base" "$head" -- "${FILES[@]}")" ]; then
-  echo "対象ファイルは未変更。SHAだけ更新します"
-  printf '%s' "$head" > .upstream-sha
-  git add .upstream-sha
-  git commit -m "Update upstream sha (${head:0:7})"
-  exit 0
-fi
-
-git switch -c "sync-${head:0:7}"
-
 tmp=$(mktemp -d)
 conflict=0
 for f in "${FILES[@]}"; do
@@ -37,7 +34,6 @@ for f in "${FILES[@]}"; do
   fi
   git -C "$A" show "$base:$f" > "$tmp/base"
   git -C "$A" show "$head:$f" > "$tmp/theirs"
-  # 競合があると終了コードが1以上になるので、止まらないように受ける
   git merge-file "$f" "$tmp/base" "$tmp/theirs" || {
     rc=$?
     if [ "$rc" -gt 127 ]; then echo "エラー: $f"; exit 1; fi
@@ -50,9 +46,26 @@ rm -rf "$tmp"
 printf '%s' "$head" > .upstream-sha
 
 if [ "$conflict" = 1 ]; then
-  echo "競合マーカー(<<<<<<<)を直してから git add -A && git commit してください"
+  echo "競合マーカー(<<<<<<<)を直してから、次を実行してください:"
+  echo "  git add -A && git commit -m 'Sync from upstream (${head:0:7})' && git push"
+  echo "(やめる場合は git restore . で元に戻せます)"
 else
   git add -A
   git commit -m "Sync from upstream (${head:0:7})"
-  echo "コミット済み。問題なければmainにマージしてpushしてください"
+  echo "ローカルにコミット済み(${head:0:7})。確認後に git push してください"
 fi
+
+echo "★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★"
+echo ""
+echo "　以下のコマンドで差分を確認可能（-d以降の引数がWinMergeの確認画面の左と右に配される）"
+echo "　　○modforkojに何が入ったか(フォルダ単位でWinMergeが開く)"
+echo "　　　　　git difftool -d HEAD~1 HEAD"
+echo ""
+echo "　　○tar1090_972の何が変わったか(取り込み前のSHAを取り出して比較)"
+echo "　　　　　base=$(git show HEAD~1:.upstream-sha)"
+echo "　　　　　git -C ../tar1090_972 difftool -d $base HEAD -- default html/config.js html/script.js"
+echo ""
+echo "★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★"
+
+# conflict 変数の値（0 または 1）をそのまま終了ステータスとして返す
+exit "$conflict"
