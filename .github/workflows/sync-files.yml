@@ -25,14 +25,14 @@ jobs:
 
       - name: Commit and Push changes
         run: |
-          # 💡 メールアドレスを一般的なボットのアドレスに修正
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.email "github-actions[bot]@://github.com"
           git config --local user.name "github-actions[bot]"
           
-          # 💡 git add も先頭の / を外す
-          git diff --quiet && git diff --staged --quiet || (
-            git add "etc/default/tar109a"
-            git add "etc/default/tar1090_972"
+          # 💡 先にファイルをGitのステージング（登録）に追加する
+          git add "etc/default/tar109a" "etc/default/tar1090_972"
+          
+          # 💡 登録された差分がある場合のみコミットしてプッシュする
+          git diff --staged --quiet || (
             git commit -m "chore: auto-sync from A to B"
             git push
           )
