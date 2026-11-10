@@ -3,9 +3,9 @@ name: Sync Configuration File
 on:
   push:
     branches:
-      - main  # 💡本番ブランチ名が「master」なら master に書き換えてください
+      - main
     paths:
-      - 'default'  # 💡元となる「ファイルA」のパスに書き換えてください
+      - 'default'
 
 jobs:
   sync:
@@ -16,19 +16,23 @@ jobs:
 
       - name: Copy A to B
         run: |
-          # 💡ファイルAの中身をファイルBに強制上書きコピー
-          cp "default" "/etc/default/tar109a"
-          cp "default" "/etc/default/tar1090_972"
+          # 💡 ディレクトリがなければ作成する（先頭の / は不要）
+          mkdir -p etc/default
+          
+          # 💡 リポジトリ内の相対パスとしてコピー
+          cp "default" "etc/default/tar109a"
+          cp "default" "etc/default/tar1090_972"
 
       - name: Commit and Push changes
         run: |
-          git config --local user.email "github-actions[bot]@://github.com"
+          # 💡 メールアドレスを一般的なボットのアドレスに修正
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # 変更がある場合（ファイルBが更新された場合）のみコミットしてプッシュ
+          # 💡 git add も先頭の / を外す
           git diff --quiet && git diff --staged --quiet || (
-            git add "/etc/default/tar109a"
-            git add "/etc/default/tar1090_972"
+            git add "etc/default/tar109a"
+            git add "etc/default/tar1090_972"
             git commit -m "chore: auto-sync from A to B"
             git push
           )
