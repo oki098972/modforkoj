@@ -31,11 +31,17 @@
 
 // The google maps zoom level, 0 - 16, lower is further out
 //DefaultZoomLvl   = 7;
+//ins-s for koj911 by oki098972
+DefaultZoomLvl   = 10.5;
+//ins-e for koj911 by oki098972
 
 // specify lat lon that the 'auto-select plane' feature will choose the closest plane to
 // autoselectCoords = [42, 21];
 
 //SiteShow    = false;           // true to show a center marker
+//ins-s for koj911 by oki098972
+SiteShow    = false;           // true to show a center marker
+//ins-e for koj911 by oki098972
 //SiteName    = "My Radar Site"; // tooltip of the marker
 
 // Update GPS location (keep map centered on GPS location)
@@ -397,6 +403,9 @@ HideCols = [
 //lastLeg = true;
 //
 //hideButtons = false;
+//ins-s for koj911 by oki098972
+hideButtons = false;
+//ins-e for koj911 by oki098972
 //
 //askLocation = false;  // requires https for geolocation (browsers require it)
 //
@@ -469,6 +478,10 @@ tableColors = {
 // Default center of the map if no Site location is set
 //DefaultCenterLat = 45.0;
 //DefaultCenterLon = 9.0;
+//ins-s for koj911 by oki098972
+DefaultCenterLat = 26.4840;
+DefaultCenterLon = 127.99;
+//ins-e for koj911 by oki098972
 //
 
 // MergeNonIcao = false; // set to true to merge non icao hex with the icao hex (remove the ~)

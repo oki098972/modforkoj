@@ -58,7 +58,10 @@ let debugAll = false;
 let trackLabels = false;
 let multiSelect = false;
 let uat_data = null;
-g.enableLabels = false;
+//chg-s for koj911 by oki098972
+//g.enableLabels = false;
+g.enableLabels = true;
+//chg-e for koj911 by oki098972
 g.extendedLabels = 0;
 let mapIsVisible = true;
 let onlyMilitary = false;
