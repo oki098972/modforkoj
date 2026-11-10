@@ -27,12 +27,11 @@ Aの最新化は、手順3のスクリプトが `git pull --ff-only` で自動�
 ### 2. (任意)事前確認: Aの何が変わったかをWinMergeで見る
 
 ```bash
-base=$(cat .upstream-sha)
 git -C ../tar1090_972 fetch
-git -C ../tar1090_972 difftool -d $base @{u} -- default html/config.js html/script.js
+bash diff-upstream.sh
 ```
 
-`fetch` だけなのでAの作業ツリーは変わりません。対象ファイルに差分がなければ、取り込みは不要です。
+左が前回取り込み時点のA、右がAの上流の最新です。`fetch` だけなのでAの作業ツリーは変わりません。対象ファイルに差分がなければ、取り込みは不要です。
 
 ### 3. 同期スクリプトを実行
 
@@ -55,8 +54,7 @@ git show --stat                 # 変わったファイルの一覧
 git difftool -d HEAD~1 HEAD     # left=同期前、right=同期後
 
 # Aの変更点(前回取り込み位置 → Aの今)
-base=$(git show HEAD~1:.upstream-sha)
-git -C ../tar1090_972 difftool -d $base HEAD -- default html/config.js html/script.js
+bash diff-upstream.sh "$(git show HEAD~1:.upstream-sha)" HEAD
 ```
 
 見るポイントは、自分の改造箇所とAの変更が近くないか、取り込み後も改造が生きているか、の2点です。
@@ -135,3 +133,4 @@ git config --global difftool.prompt false
 - Aで先に `git pull` しても、差分の基準は `.upstream-sha` なので取りこぼしません
 - `difftool -d` の左右は一時コピーなので、WinMerge上で編集してもBには反映されません
 - `HEAD~1` で同期コミットを指せるのは、同期コミットが最新のときだけです。重ねてコミットした後は `git log --oneline` で該当コミットを探してください
+- `diff-upstream.sh` はAの `git show` でファイルを一時フォルダに書き出してWinMergeに渡すので、`git difftool` を使いません(この環境では、Aに対する `difftool -d` がSegmentation faultで落ちたため)。一時フォルダの内容は編集してもA・Bには反映されません
