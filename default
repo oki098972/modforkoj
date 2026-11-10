@@ -7,9 +7,9 @@ INTERVAL=20
 HISTORY_SIZE=540
 
 # history duration computes as HISTORY_SIZE x INTERVAL seconds.
-# 540x20=10,800 10,800/60/60=3(hours)
-# 12,960x20=259,200 259,200/60/60=72(hours)
-# 13,320x20=259,200 266,400/60/60=74(hours)
+# ex. 540x20=10,800 10,800/60/60=3(hours)
+#     12,960x20=259,200 259,200/60/60=72(hours)
+#     13,320x20=259,200 266,400/60/60=74(hours)
 
 # Change to yes to enable UAT/978 display in tar1090
 ENABLE_978=no
