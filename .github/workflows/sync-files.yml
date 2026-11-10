@@ -1,0 +1,34 @@
+name: Sync Configuration File
+
+on:
+  push:
+    branches:
+      - main  # 💡本番ブランチ名が「master」なら master に書き換えてください
+    paths:
+      - 'default'  # 💡元となる「ファイルA」のパスに書き換えてください
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Copy A to B
+        run: |
+          # 💡ファイルAの中身をファイルBに強制上書きコピー
+          cp "default" "/etc/default/tar109a"
+          cp "default" "/etc/default/tar1090_972"
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "github-actions[bot]@://github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # 変更がある場合（ファイルBが更新された場合）のみコミットしてプッシュ
+          git diff --quiet && git diff --staged --quiet || (
+            git add "/etc/default/tar109a"
+            git add "/etc/default/tar1090_972"
+            git commit -m "chore: auto-sync from A to B"
+            git push
+          )
