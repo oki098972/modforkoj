@@ -57,11 +57,25 @@ git difftool -d HEAD~1 HEAD     # left=同期前、right=同期後
 bash $\color{red}{\text{diff-upstream.sh}}$ "$(git show HEAD~1:.upstream-sha)" HEAD
 ```
 
-<pre><code>git show --stat            # 変わったファイルの一覧
-git difftool -d HEAD~1 HEAD  # left=同期前、right=同期後
+> `git show --stat`　　　　　　`# 変わったファイルの一覧`  
+> `git difftool -d HEAD~1 HEAD`　`# left=同期前、right=同期後`  
+>  
+> `# Aの変更点(前回取り込み位置 → Aの今)`  
+> `bash` $\color{red}{\texttt{diff-upstream.sh}}$ `"$(git show HEAD~1:.upstream-sha)" HEAD`
 
-# Aの変更点(前回取り込み位置 → Aの今)
-bash $\color{red}{\text{diff-upstream.sh}}$ "$(git show HEAD~1:.upstream-sha)" HEAD</code></pre>
+<table>
+<tr>
+<td>
+
+`git show --stat`　　　　　　`# 変わったファイルの一覧`  
+`git difftool -d HEAD~1 HEAD`　`# left=同期前、right=同期後`  
+
+`# Aの変更点(前回取り込み位置 → Aの今)`  
+`bash` $\color{red}{\texttt{diff-upstream.sh}}$ `"$(git show HEAD~1:.upstream-sha)" HEAD`
+
+</td>
+</tr>
+</table>
 
 見るポイントは、自分の改造箇所とAの変更が近くないか、取り込み後も改造が生きているか、の2点です。
 
