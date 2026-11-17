@@ -57,12 +57,6 @@ git difftool -d HEAD~1 HEAD     # left=同期前、right=同期後
 bash $\color{red}{\text{diff-upstream.sh}}$ "$(git show HEAD~1:.upstream-sha)" HEAD
 ```
 
-> `git show --stat`　　　　　　`# 変わったファイルの一覧`  
-> `git difftool -d HEAD~1 HEAD`　`# left=同期前、right=同期後`  
->  
-> `# Aの変更点(前回取り込み位置 → Aの今)`  
-> `bash` $\color{red}{\texttt{diff-upstream.sh}}$ `"$(git show HEAD~1:.upstream-sha)" HEAD`
-
 <table>
 <tr>
 <td>
@@ -72,6 +66,20 @@ bash $\color{red}{\text{diff-upstream.sh}}$ "$(git show HEAD~1:.upstream-sha)" H
 
 `# Aの変更点(前回取り込み位置 → Aの今)`  
 `bash` $\color{red}{\texttt{diff-upstream.sh}}$ `"$(git show HEAD~1:.upstream-sha)" HEAD`
+
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td>
+
+$\texttt{git show --stat \ \ \ \ \ \ \ \ \ \ \ \ \# 変わったファイルの一覧}$  
+$\texttt{git difftool -d HEAD\~1 HEAD \ \ \# left=同期前、right=同期後}$  
+
+$\texttt{\# Aの変更点(前回取り込み位置 → Aの今)}$  
+$\texttt{bash } \color{red}{\texttt{diff-upstream.sh}} \texttt{ "\$(git show HEAD\~1:.upstream-sha)" HEAD}$
 
 </td>
 </tr>
