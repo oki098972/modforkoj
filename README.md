@@ -47,7 +47,7 @@ bash sync-upstream.sh
 | ローカルにコミット済み | 競合なしで取り込み完了(pushはまだ) | 手順4へ |
 | 競合: ファイル名 | 競合マーカーが入って停止(未コミット) | 下の「競合したとき」へ |
 
-### 4. 事後確認: Bに何が入ったかを$\color{red}{\text{WinMerge}}$で見る
+### 4. 事後確認: Bに何が入ったかを $\color{red}{\text{WinMerge}}$ で見る
 
 ```bash
 git show --stat                 # 変わったファイルの一覧
