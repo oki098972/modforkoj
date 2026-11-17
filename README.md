@@ -57,8 +57,8 @@ git difftool -d HEAD~1 HEAD     # left=同期前、right=同期後
 bash diff-upstream.sh "$(git show HEAD~1:.upstream-sha)" HEAD
 ```
 
-$\scriptsize{\text{※ }\color{red}{\texttt{diff-upstream.sh}}\text{ はWinMerge支援スクリプト（ディレクトリ指定等が不要になる）}}$<br>
-見るポイントは、自分の改造箇所とAの変更が近くないか、取り込み後も改造が生きているか、の2点です。
+見るポイントは、自分の改造箇所とAの変更が近くないか、取り込み後も改造が生きているか、の2点です。<br>
+$\scriptsize{\text{※ }\textcolor{red}{\texttt{diff-upstream.sh}}\text{ はWinMerge支援スクリプト（ディレクトリ指定等が不要になる）}}$
 
 ### 5. 問題なければ反映
 
