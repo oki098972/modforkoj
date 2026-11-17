@@ -47,14 +47,14 @@ bash sync-upstream.sh
 | ローカルにコミット済み | 競合なしで取り込み完了(pushはまだ) | 手順4へ |
 | 競合: ファイル名 | 競合マーカーが入って停止(未コミット) | 下の「競合したとき」へ |
 
-### 4. 事後確認: Bに何が入ったかをWinMergeで見る
+### 4. 事後確認: Bに何が入ったかを$\color{red}{\text{WinMerge}}$で見る
 
 ```bash
 git show --stat                 # 変わったファイルの一覧
 git difftool -d HEAD~1 HEAD     # left=同期前、right=同期後
 
 # Aの変更点(前回取り込み位置 → Aの今)
-bash diff-upstream.sh "$(git show HEAD~1:.upstream-sha)" HEAD
+bash $\color{red}{\text{diff-upstream.sh}}$ "$(git show HEAD~1:.upstream-sha)" HEAD
 ```
 
 見るポイントは、自分の改造箇所とAの変更が近くないか、取り込み後も改造が生きているか、の2点です。
@@ -134,3 +134,12 @@ git config --global difftool.prompt false
 - `difftool -d` の左右は一時コピーなので、WinMerge上で編集してもBには反映されません
 - `HEAD~1` で同期コミットを指せるのは、同期コミットが最新のときだけです。重ねてコミットした後は `git log --oneline` で該当コミットを探してください
 - `diff-upstream.sh` はAの `git show` でファイルを一時フォルダに書き出してWinMergeに渡すので、`git difftool` を使いません(この環境では、Aに対する `difftool -d` がSegmentation faultで落ちたため)。一時フォルダの内容は編集してもA・Bには反映されません
+
+
+## 補足２
+tar1090_972の差分取り込みの効率化
+
+- GitHubのWinローカルディレクトリで、wiedehopf氏のリポジトリにて、tar1090_972のBaseとしたものをtar1090_base、最新版（差分取り込み対象）をtar1090_upとする
+
+
+
