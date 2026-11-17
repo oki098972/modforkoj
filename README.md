@@ -54,37 +54,10 @@ git show --stat                 # 変わったファイルの一覧
 git difftool -d HEAD~1 HEAD     # left=同期前、right=同期後
 
 # Aの変更点(前回取り込み位置 → Aの今)
-bash $\color{red}{\text{diff-upstream.sh}}$ "$(git show HEAD~1:.upstream-sha)" HEAD
+bash diff-upstream.sh "$(git show HEAD~1:.upstream-sha)" HEAD
 ```
 
-<table>
-<tr>
-<td>
-
-`git show --stat`　　　　　　`# 変わったファイルの一覧`  
-`git difftool -d HEAD~1 HEAD`　`# left=同期前、right=同期後`  
-
-`# Aの変更点(前回取り込み位置 → Aの今)`  
-`bash` $\color{red}{\texttt{diff-upstream.sh}}$ `"$(git show HEAD~1:.upstream-sha)" HEAD`
-
-</td>
-</tr>
-</table>
-
-<table>
-<tr>
-<td>
-
-$\texttt{git show --stat}$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `# 変わったファイルの一覧`  
-$\texttt{git difftool -d HEAD\~1 HEAD}$ &nbsp; `# left=同期前、right=同期後`  
-
-`# Aの変更点(前回取り込み位置 → Aの今)`  
-$\texttt{bash}$ $\color{red}{\texttt{diff-upstream.sh}}$ `"`$`\texttt{(git show HEAD\~1:.upstream-sha)" HEAD}$`
-
-</td>
-</tr>
-</table>
-
+※ $\color{red}{\text{diff-upstream.sh}}$ はWinMerge支援スクリプト（ディレクトリ指定等が不要になる）
 見るポイントは、自分の改造箇所とAの変更が近くないか、取り込み後も改造が生きているか、の2点です。
 
 ### 5. 問題なければ反映
