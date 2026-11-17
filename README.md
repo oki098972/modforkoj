@@ -74,13 +74,13 @@ bash $\color{red}{\text{diff-upstream.sh}}$ "$(git show HEAD~1:.upstream-sha)" H
 <table>
 <tr>
 <td>
+<pre>
+git show --stat            # 変わったファイルの一覧
+git difftool -d HEAD~1 HEAD  # left=同期前、right=同期後
 
-$\texttt{git show --stat \ \ \ \ \ \ \ \ \ \ \ \ \# 変わったファイルの一覧}$  
-$\texttt{git difftool -d HEAD\~1 HEAD \ \ \# left=同期前、right=同期後}$  
-
-$\texttt{\# Aの変更点(前回取り込み位置 → Aの今)}$  
-$\texttt{bash } \color{red}{\texttt{diff-upstream.sh}} \texttt{ "\$(git show HEAD\~1:.upstream-sha)" HEAD}$
-
+# Aの変更点(前回取り込み位置 → Aの今)
+bash $\color{red}{\texttt{diff-upstream.sh}}$ "$(git show HEAD~1:.upstream-sha)" HEAD
+</pre>
 </td>
 </tr>
 </table>
